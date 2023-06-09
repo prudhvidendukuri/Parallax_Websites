@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./style.css">
+    <title>Document</title>
+    <style>
+        body{
+            overflow-x: hidden;
+            overflow-y: hidden;
+        }
+
+        #main{
+            position: relative;
+        }
+
+        #outer{
+            position: absolute;
+            top: 0px;
+            left: 0px;
+            background-color: red;
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+        }
+        #inner{
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            background-color: white;
+            width: 160px;
+            height: 160px;
+            border-radius: 50%;
+        }
+        #cut{
+            position: absolute;
+            top: 90px;
+            left: 0px;
+            background-color: white;
+            width: 200px;
+            height: 200px;
+
+        }
+        #increase{
+            position: absolute;
+            top: -100px;
+            left: 100px;
+            width: 200px;
+            height: 300px;
+            transform: rotate(-45deg);
+            transform-origin: left bottom;
+            background-color: white;
+        }
+        #rotate{
+            position: absolute;
+            top: 500px;
+        }
+        #button{
+            position: absolute;
+            top: 500px;
+            left: 250px;
+        }
+
+        /* loading page */
+        #loading{
+            position: relative;
+            width: 100%;
+            height: 95vh;
+            
+        }
+        #load{
+            position: absolute;
+            top: 45%;
+            left: 48%;
+            width: 100px;
+            height: auto;
+            animation: spin 1.5s linear infinite
+        }
+        @keyframes spin {
+            0% {
+            transform: rotate(0deg);
+            }
+            100% {
+            transform: rotate(360deg);
+            }
+        }
+        /* 
+        calender */
+
+        #calender{
+            display: flex;
+            width: 380px;
+            height: 380px;
+            border: 1px solid red;
+            flex-wrap: wrap;
+            justify-content: space-around;
+            align-items: center;
+            
+        }
+        .box{
+            width: 50px;
+            height: 50px;
+            border: 1px solid blue;
+            text-align: center;
+            
+        }
+    </style>
+</head>
+<body id="body">
+    <div id="main" style="display: none;">
+        <div id="outer">
+        </div>
+        <div id="inner">
+        </div>
+        <div id="cut"></div>
+        <div id="increase"></div>
+
+        <input type="number" name="load" id="rotate" onchange="change()" min="3" max="87" step="1">
+        <input type="button" onclick="change()" value="click" id="button">
+    </div>
+    <div id="loading">
+        <img src="./loading.png" alt="Loading" id="load">
+
+    </div>
+    <div id="calender" style="display: none;"></div>
+
+    <script>
+        window.addEventListener('load', function() {
+            // Delay in milliseconds
+            var delayInMilliseconds = 6000; // 3 seconds
+
+            // Wait for the specified duration
+            setTimeout(function() {
+                // Hide the loading screen
+                document.getElementById('loading').style.display = 'none';
+            }, delayInMilliseconds);
+            setTimeout(function() {
+                // Hide the loading screen
+                document.getElementById('calender').style.display = 'flex';
+                calender();
+            }, delayInMilliseconds);
+
+            });
+        function calender() {
+            var container = document.getElementById("calender");
+            var date = new Date();
+            var month = date.getMonth();
+            var dateofpresent = date.getDate();
+            var preset = date.getDay();
+            for (var i = 1; i <= 35; i++) {
+            var box = document.createElement('div');
+            box.classList.add('box');
+            if(i<31){
+                box.textContent = i;
+            }else{
+                box.setAttribute("style","border:none");
+            }
+            
+            container.appendChild(box);
+            }
+        };
+
+        function change(){
+            let rotate = document.getElementById('rotate');
+            let values = rotate.value-45;
+            let increase = document.getElementById("increase");
+            increase.style.transform = `rotate(${values}deg)`;
+            
+        }
+    </script>
+</body>
+</html>
